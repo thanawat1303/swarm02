@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  api:
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim
+    logging:
+      driver: json-file
+    # command:
+    #   - /start.sh
+    #   - File=main.py  
+    #   - if [ -f "$File" ]; then 
+    #   - echo "$File exist"  
+    #   - else  
+    #   - echo "from fastapi import FastAPI" >> main.py
+    #   - echo "app = FastAPI()" >> main.py
+    #   - echo "@app.get("/")" >> main.py
+    #   - echo "def hello_world():" >> main.py
+    #   - echo "  return dict(message , 'OK')" >> main.py   
+    #   - fi       
+    #   - /start.sh
+    container_name: fastapi-application
+    environment:
+      PORT: 8000
+    ports:
+      - '8001:8000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - app:/app
+    restart: 'no'
+    deploy:
+      replicas: 1
+      resources:
+        reservations:
+          cpus: '0.01'
+          memory: '10m'
+        limits:
+          cpus: '0.4'
+          memory: '50m'
+volumes:
+  app:
