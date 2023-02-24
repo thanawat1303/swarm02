@@ -35,18 +35,19 @@
     ในเครื่อง Manage มาทำการรันเพื่อเชื่อมต่อ swarm
 
  5. ทำการเตรียมไฟล์ docker-compose.yml
-    - image => ใช้ image จาก DockerFile
-    - logging => json-file คือ เลือกประเภทการ log เป็น json
-    - command => สั่งใช้งาน command หลังจากรีบูท containner เสร็จสิ้น
-    - containner_name => ตั้งชื่อ containner
-    - environment => PORT คือ PORT ที่ตัว containner ทำงานอยู่
-    - ports => พอร์ตในการเข้าถึงโปรแกรม - พอร์ตที่เข้าถึงผ่าน Host : พอร์ตที่ทำการเชื่อมเข้าหา Containner
-    - volumes => mount ส่วนเก็บข้อมูล - Path ข้อมูลบน Host : Path ข้อมูลบน Containner
-    - deploy เซ็ตการ deploy สำหรับ swarm
-      - replicas => กำหนดเครื่อง worker ที่ต้องหการให้ deploy containner ลงไป
-      - resources => กำหนดสเปคที่ต้องการของ Containner
-        - reservations => กำหนดค่าขั้นต่ำของสเปค
-        - limits => กำหนดค่าสูงสุดของสเปค
+    - services
+     - image => ใช้ image จาก DockerFile
+     - logging => json-file คือ เลือกประเภทการ log เป็น json
+     - command => สั่งใช้งาน command หลังจากรีบูท containner เสร็จสิ้น
+     - containner_name => ตั้งชื่อ containner
+     - environment => PORT คือ PORT ที่ตัว containner ทำงานอยู่
+     - ports => พอร์ตในการเข้าถึงโปรแกรม - พอร์ตที่เข้าถึงผ่าน Host : พอร์ตที่ทำการเชื่อมเข้าหา Containner
+     - volumes => mount ส่วนเก็บข้อมูล - Path ข้อมูลบน Host : Path ข้อมูลบน Containner
+     - deploy เซ็ตการ deploy สำหรับ swarm
+       - replicas => กำหนดเครื่อง worker ที่ต้องหการให้ deploy containner ลงไป
+       - resources => กำหนดสเปคที่ต้องการของ Containner
+         - reservations => กำหนดค่าขั้นต่ำของสเปค
+         - limits => กำหนดค่าสูงสุดของสเปค
     - volumes => พื้นที่เก็บข้อมูลที่จะสร้างไว้ให้อยู่บน Host
       - app => ชื่อพื้นที่เก็บข้อมูล ต้องตรงตามที่กำหนดที่ volumes ที่ mount กับ cpntianner
 
