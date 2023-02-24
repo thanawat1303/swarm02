@@ -54,6 +54,40 @@
  6. ทำการ Remote ไฟล์งานเข้าสู่ Repo swarm02 บน github
  7. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github
 
+### Revert Proxy
+ 
+ - Manage Traefik
+
+   - สร้าง Network ใหม่
+ 
+   docker network create --driver=overlay traefik-public
+
+   - Get ID Node 
+
+   export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+   echo $NODE_ID
+
+   - สร้าง Label ของ Node Manage
+
+   docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
+
+   - set Treafik
+
+   export EMAIL=user@smtp.com
+   export DOMAIN=<ชื่อ traefik domain ที่ต้องการให้เข้าถึง traefik>
+   export USERNAME=admin
+   export PASSWORD=<รหัสผ่าน traefik>
+   export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+   echo $HASHED_PASSWORD
+
+   - deploy traefik stack
+
+   docker stack deploy -c traefik-host.yml traefik
+
+   ### Ref
+
+   - https://github.com/pitimon/dockerswarm-inhoure/tree/main/ep03-traefik
+
 ### Remote Repo on LINUX
  1. ทำการสร้างไฟล์ README.md ใน Repo 
  2. git clone <URL GIT Repo>

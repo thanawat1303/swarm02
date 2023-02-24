@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 services:
   api:
     image: tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim
@@ -26,8 +26,20 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - app:/app
     restart: 'no'
+    networks:
+      - webproxy
     deploy:
       replicas: 1
+      labels:
+        traefik.enable: 'true'
+        traefik.docker.network: webproxy
+        traefik.http.routers.spcn19fastapi02-http.entrypoints: http
+        traefik.http.routers.spcn19fastapi02-http.rule: Host(`spcn19fastapi02.xops.ipv9.xyz`)
+        traefik.http.services.spcn19fastapi02.loadbalancer.server.port: '8000'
+        traefik.http.routers.spcn19fastapi02-http.middlewares: https-redirect
+        traefik.http.routers.spcn19fastapi02-https.rule: Host(`spcn19fastapi02.xops.ipv9.xyz`)
+        traefik.http.routers.spcn19fastapi02-https.entrypoints: https
+        traefik.http.routers.spcn19fastapi02-https.tls: 'true'
       resources:
         reservations:
           cpus: '0.01'
@@ -35,5 +47,9 @@ services:
         limits:
           cpus: '0.4'
           memory: '50m'
+
+networks:
+  webproxy:
+    external: true
 volumes:
   app:
