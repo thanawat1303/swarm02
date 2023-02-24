@@ -34,10 +34,10 @@ services:
         - traefik.docker.network=webproxy
         - traefik.constraint-label=webproxy
         - traefik.enable=true
-        - traefik.http.routers.spcn19fastapiS2-https.entrypoints=websecure
-        - traefik.http.routers.spcn19fastapiS2-https.rule=Host("spcn19fastapiS2.xops.ipv9.xyz")
-        - traefik.http.routers.spcn19fastapiS2-https.tls.certresolver=default
-        - traefik.http.services.spcn19fastapiS2.loadbalancer.server.port=8000
+        - traefik.http.routers.spcn19fastapi-https.entrypoints=websecure
+        - traefik.http.routers.spcn19fastapi-https.rule=Host("spcn19fastapi.xops.ipv9.xyz")
+        - traefik.http.routers.spcn19fastapi-https.tls.certresolver=default
+        - traefik.http.services.spcn19fastapi.loadbalancer.server.port=8000
       resources:
         reservations:
           cpus: '0.01'
