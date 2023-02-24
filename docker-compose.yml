@@ -32,6 +32,7 @@ services:
       replicas: 1
       labels:
         - traefik.docker.network=webproxy
+        - traefik.constraint-label=webproxy
         - traefik.enable=true
         - traefik.http.routers.spcn19fastapiS2-https.entrypoints=websecure
         - traefik.http.routers.spcn19fastapiS2-https.rule=Host("spcn19fastapiS2.xops.ipv9.xyz")
