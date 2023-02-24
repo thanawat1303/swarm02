@@ -31,15 +31,12 @@ services:
     deploy:
       replicas: 1
       labels:
-        traefik.enable: 'true'
-        traefik.docker.network: webproxy
-        traefik.http.routers.spcn19fastapi02-http.entrypoints: http
-        traefik.http.routers.spcn19fastapi02-http.rule: Host(`spcn19fastapi02.xops.ipv9.xyz`)
-        traefik.http.services.spcn19fastapi02.loadbalancer.server.port: '8000'
-        traefik.http.routers.spcn19fastapi02-http.middlewares: https-redirect
-        traefik.http.routers.spcn19fastapi02-https.rule: Host(`spcn19fastapi02.xops.ipv9.xyz`)
-        traefik.http.routers.spcn19fastapi02-https.entrypoints: https
-        traefik.http.routers.spcn19fastapi02-https.tls: 'true'
+        - traefik.docker.network=webproxy
+        - traefik.enable=true
+        - traefik.http.routers.spcn19fastapi02-https.entrypoints=websecure
+        - traefik.http.routers.spcn19fastapi02-https.rule=Host("spcn19fastapi02.xops.ipv9.me")
+        - traefik.http.routers.spcn19fastapi02-https.tls.certresolver=default
+        - traefik.http.services.spcn19fastapi02.loadbalancer.server.port=8000
       resources:
         reservations:
           cpus: '0.01'
