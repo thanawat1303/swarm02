@@ -34,7 +34,7 @@ services:
         - traefik.docker.network=webproxy
         - traefik.enable=true
         - traefik.http.routers.spcn19fastapiS2-https.entrypoints=websecure
-        - traefik.http.routers.spcn19fastapiS2-https.rule=Host("spcn19fastapiS2.xops.ipv9.me")
+        - traefik.http.routers.spcn19fastapiS2-https.rule=Host("spcn19fastapiS2.xops.ipv9.xyz")
         - traefik.http.routers.spcn19fastapiS2-https.tls.certresolver=default
         - traefik.http.services.spcn19fastapiS2.loadbalancer.server.port=8000
       resources:
