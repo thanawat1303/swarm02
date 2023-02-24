@@ -17,7 +17,6 @@ services:
     #   - echo "  return dict(message , 'OK')" >> main.py   
     #   - fi       
     #   - /start.sh
-    container_name: fastapi-application
     environment:
       PORT: 8000
     ports:
@@ -34,7 +33,7 @@ services:
         - traefik.docker.network=webproxy
         - traefik.constraint-label=webproxy
         - traefik.enable=true
-        - traefik.http.routers.spcn19fastapi-https.entrypoints=websecure
+        - traefik.http.routers.spcn19fastapi-https.entrypoints=http
         - traefik.http.routers.spcn19fastapi-https.rule=Host("spcn19fastapi.xops.ipv9.xyz")
         - traefik.http.routers.spcn19fastapi-https.tls.certresolver=default
         - traefik.http.services.spcn19fastapi.loadbalancer.server.port=8000
