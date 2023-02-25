@@ -5,19 +5,11 @@ services:
     networks:
      - webproxy
     command:
-     - /bin/bash
-     - -c
-     - |
-       echo "from fastapi import FastAPI" > main.py
-       echo "app = FastAPI()" >> main.py
-       echo "@app.get('/')" >> main.py   
-       echo "def hello_world():" >> main.py  
-       echo '  message = "ผมรักวิชานี้ SPCN19"' >> main.py
-       echo '  return dict(message = message)' >> main.py  
-       pip install fastapi uvicorn
-       apt-get update
-       apt-get install -y --no-install-recommends git
-       /start.sh
+     - /start.sh
+     - pip install fastapi uvicorn
+     - apt-get update
+     - apt-get install -y --no-install-recommends git
+     - /start.sh
     environment:
      PORT: 8000
     logging:
