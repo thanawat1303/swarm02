@@ -11,6 +11,7 @@ services:
        pip install fastapi uvicorn
        apt-get update
        apt-get install -y --no-install-recommends git
+       apt-get install wget
        if [ -f "init" ]; then 
        echo ""
        else 
