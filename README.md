@@ -2,26 +2,26 @@
 ### ขั้นตอนการติดตั้ง และใช้งาน ใน VM
  1. Set Template 
 
-   set time
+    set time
 
-    timedatectl set-timezone Asia/Bangkok
+     timedatectl set-timezone Asia/Bangkok
 
-   install Docker
+    install Docker
 
-    apt update; apt upgrade -y #อัปเดตแพ็คเกจภายในเครื่อง
+     apt update; apt upgrade -y #อัปเดตแพ็คเกจภายในเครื่อง
 
-    apt-get install ca-certificates curl wget gnupg lsb-release -y #ติดตั้งแพ็คเกจ
+     apt-get install ca-certificates curl wget gnupg lsb-release -y #ติดตั้งแพ็คเกจ
 
-    mkdir -m 0755 -p /etv/apt/keyrings
+      mkdir -m 0755 -p /etv/apt/keyrings
 
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg #ดาวโหลดไฟล์แพ็คเกจ Docker
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg #ดาวโหลดไฟล์แพ็คเกจ Docker
 
-    echo \ "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) stable" |  tee /etc/apt/sources.list.d/docker.list > /dev/null
+      echo \ "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) stable" |  tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-    apt-get update #อัปเดทไฟล์แพ็คเกจเพื่อไว้สำหรับให้ติดตั้ง
-    apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y #ติดตั้ง Docker
+      apt-get update #อัปเดทไฟล์แพ็คเกจเพื่อไว้สำหรับให้ติดตั้ง
+      apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y #ติดตั้ง Docker
 
-    reboot
+      reboot
 
  2. Set Hostname 
 
@@ -66,8 +66,8 @@
             - traefik.constraint-label => เลือก traefik ที่ต้องการให้ container ไปทำงาน
             - traefik.http.routers.spcn19fastapi-https.entrypoints => กำหนด port ในการเชื่อมต่อเมื่อมีคำขอเข้าไปที่ traefik
             - traefik.http.routers.spcn19fastapi-https.rule=Host("spcn19fastapi.xops.ipv9.xyz") 
-            traefik.http.routers.spcn19fastapi-https.tls.certresolver => กำหนดการสร้างใบรับรองที่ตัว treafik จะทำการร้องขอไป
-            - traefik.http.services.spcn19fastapi.loadbalancer.server.port กำหนดให้มีการ balance ในการร้องขอ port ที่ container ทำงาน
+            - traefik.http.routers.spcn19fastapi-https.tls.certresolver => กำหนดการสร้างใบรับรอง url
+            - traefik.http.services.spcn19fastapi.loadbalancer.server.port => กำหนดให้มีการ balance ในการร้องขอ port ที่ container ทำงาน
             - traefik.http.routers.spcn19fastapi-https.tls => เปิดใช้งาน Protocal TLS
           - resources => กำหนดสเปคที่ต้องการของ Containner
             - reservations => กำหนดค่าขั้นต่ำของสเปค
@@ -86,46 +86,45 @@
 ### Revert Proxy
 <a name="revert-proxy"></a>
 
- - Manage Traefik
+ - Manager Traefik
 
    - Set IP สำหรับเครื่อง Client
      - แก้ไขไฟล์ hosts
-     - windows C:\Windows\System32\drivers\etc\hosts
-     - Linux /etc/hosts
+       - windows C:\Windows\System32\drivers\etc\hosts
+       - Linux /etc/hosts
      - เพิ่ม Domain ให้แต่ละโปรแกรมโดยเชื่อมเข้าสู่ IP ของ manager เช้น 172.31.1.178 traefik.demo.local
 
    - สร้าง Network ใหม่
  
-   ```
-   docker network create --driver=overlay traefik-public
-   ```
+     ```
+     docker network create --driver=overlay traefik-public
+     ```
 
    - Get ID Node 
-
-   
-   export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
-   echo $NODE_ID
+     
+     export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}') 
+     echo $NODE_ID
 
    - สร้าง Label ของ Node Manage
 
-   docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
+     docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
 
    - set Treafik
 
-   export EMAIL=user@smtp.com
-   export DOMAIN=<ชื่อ traefik domain ที่ต้องการให้เข้าถึง traefik>
-   export USERNAME=admin
-   export PASSWORD=<รหัสผ่าน traefik>
-   export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
-   echo $HASHED_PASSWORD
+     export EMAIL=user@smtp.com
+     export DOMAIN=<ชื่อ traefik domain ที่ต้องการให้เข้าถึง traefik>
+     export USERNAME=admin
+     export PASSWORD=<รหัสผ่าน traefik>
+     export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+     echo $HASHED_PASSWORD
 
    - deploy traefik stack
 
-   docker stack deploy -c traefik-host.yml traefik
+     docker stack deploy -c traefik-host.yml traefik
 
    - ทดลองเปิดหน้า Dashboard Traefik
 
-   ![image.png]
+     ![image.png]
 
    ### Ref
 
