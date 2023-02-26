@@ -82,7 +82,7 @@
     - volumes => พื้นที่เก็บข้อมูลที่จะสร้างไว้ให้อยู่บน Host
       - app => ชื่อพื้นที่เก็บข้อมูล ภายใน host ต้องตรงตามที่กำหนดที่ volumes ที่ mount กับ contianer
  9. ทำการ Remote และ upload ไฟล์งานเข้าสู่ Repo swarm02 บน github
- 10. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ potainer ของระบบ
+ 10. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ portainer ของระบบ
  11. Deploy
 
 ### Create Image on Stack
