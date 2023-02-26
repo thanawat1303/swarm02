@@ -107,6 +107,9 @@
      docker stack deploy -c portainer-agent-stack.yml portainer
      ```
 
+   ### Ref
+   - https://github.com/pitimon/dockerswarm-inhoure#swarm-init
+
 ### Revert Proxy
 <a name="revert-proxy"></a>
 
@@ -152,7 +155,6 @@
    - ทดลองเปิดหน้า Dashboard Traefik
 
    ### Ref
-
    - https://github.com/pitimon/dockerswarm-inhoure/tree/main/ep03-traefik
 
 ### Remote Repo on LINUX
