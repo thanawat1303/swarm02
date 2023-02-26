@@ -2,11 +2,6 @@ version: '3.3'
 services:
   api:
     image: thanawat1303/fastapi-main
-    # command: 
-    #  - /bin/bash
-    #  - -c
-    #    |
-    #    /start.sh
     networks:
      - webproxy
     environment:
