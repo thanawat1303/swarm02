@@ -3,13 +3,11 @@
  1. Set Template 
 
     - set time
-
       ```
       timedatectl set-timezone Asia/Bangkok
       ```
 
     - install Docker
-
       ```
       apt update; apt upgrade -y #อัปเดตแพ็คเกจภายในเครื่อง
 
