@@ -25,12 +25,17 @@
       reboot
       ```
 
- 2. Set Hostname 
+ 2. Clone Templete ออกมา 3 Node คือ
+    - manage
+    - work1
+    - work2
+
+ 3. Set Hostname 
     ```
     hostnamectl set-hostname "ชื่อ Hostname โดยต้องห้ามซ้ำ" #spcn19-swarm02
     ```
 
- 3. Reset Machine ID เพื่อขอ Public IP จาก DHCP
+ 4. Reset Machine ID เพื่อขอ Public IP จาก DHCP
     ```
     cp /dev/null /etc/machine-id
     rm /var/lib/dbus/machine-id
@@ -38,13 +43,13 @@
     init 0
     ```
 
- 4. ทำการนำ Url Token จากคำสั่ง 
+ 5. ทำการนำ Url Token จากคำสั่ง 
     ```
     docker swarm init #รันในเครื่อง Manage
     ```
 
- 5. [ทำการเตรียม Revert Proxy](#revert-proxy)
- 6. ทำการเตรียมไฟล์ docker-compose.yml #
+ 6. [ทำการเตรียม Revert Proxy](#revert-proxy)
+ 7. ทำการเตรียมไฟล์ docker-compose.yml #
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
       - api : => ชื่อของ application
@@ -77,10 +82,10 @@
     - volumes => พื้นที่เก็บข้อมูลที่จะสร้างไว้ให้อยู่บน Host
       - app => ชื่อพื้นที่เก็บข้อมูล ภายใน host ต้องตรงตามที่กำหนดที่ volumes ที่ mount กับ contianner
         - external => กำหนดสถานะของที่เก็บข้อมูลที่อยู่ภายใน host
- 7. จัดการไฟล์ main.py ใน path app/main.py เพื่อจัดการ UI ใน application
- 8. ทำการ Remote และ upload ไฟล์งานเข้าสู่ Repo swarm02 บน github
- 9. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ potainer ของระบบ
- 10. Deploy
+ 8. จัดการไฟล์ main.py ใน path app/main.py เพื่อจัดการ UI ใน application
+ 9. ทำการ Remote และ upload ไฟล์งานเข้าสู่ Repo swarm02 บน github
+ 10. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ potainer ของระบบ
+ 11. Deploy
 
 ### Revert Proxy
 <a name="revert-proxy"></a>
@@ -94,7 +99,6 @@
      - เพิ่ม Domain ให้แต่ละโปรแกรมโดยเชื่อมเข้าสู่ IP ของ manager เช้น 172.31.1.178 traefik.demo.local
 
    - สร้าง Network ใหม่
- 
      ```
      docker network create --driver=overlay traefik-public
      ```
@@ -126,8 +130,6 @@
      ```
      
    - ทดลองเปิดหน้า Dashboard Traefik
-
-     image.png
 
    ### Ref
 
