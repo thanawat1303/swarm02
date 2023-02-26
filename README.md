@@ -96,7 +96,7 @@
      - แก้ไขไฟล์ hosts
        - windows C:\Windows\System32\drivers\etc\hosts
        - Linux /etc/hosts
-     - เพิ่ม Domain ให้แต่ละโปรแกรมโดยเชื่อมเข้าสู่ IP ของ manager เช้น 172.31.1.178 traefik.demo.local
+     - เพิ่ม Domain ให้แต่ละโปรแกรมโดยเชื่อมเข้าสู่ IP ของ manager เช้น "ip manage" traefik.demo.local
 
    - สร้าง Network ใหม่
      ```
