@@ -30,6 +30,14 @@
    ```
 
  3. Reset Machine ID เพื่อขอ Public IP จาก DHCP
+   
+   ```
+   cp /dev/null /etc/machine-id
+   rm /var/lib/dbus/machine-id
+   ln -s /etc/machine-id /var/lib/dbus/machine-id
+   init 0
+   ```
+   
  4. ทำการนำ Url Token จากคำสั่ง 
  
     docker swarm init 
