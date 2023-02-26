@@ -1,4 +1,8 @@
-# swarm02 Fast API:Python
+# swarm02 fastapi
+### Url fastapi
+- https://spcn19fastapi.xops.ipv9.xyz/
+### Ref
+- https://github.com/docker/awesome-compose/tree/master/fastapi
 ### ขั้นตอนการติดตั้ง และใช้งาน ใน VM
  1. Set Template 
 
@@ -45,14 +49,13 @@
 
  5. [ทำการเตรียม stack swarm](#stack-swarm)
  6. [ทำการเตรียม Revert Proxy](#revert-proxy)
- 7. ทำการเตรียมไฟล์ docker-compose.yml #APPNAME => spcn19fastapi
-    ```อ้างอิงข้อมูล image และ command จาก DockerFile```
+ 7. [สร้าง Image สำหรับ Stack](#create-image-on-stack)
+ 8. ทำการเตรียมไฟล์ docker-compose.yml #APPNAME => `spcn19fastapi`
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
       - api : => ชื่อของ application
-        - image => ใช้ image จาก DockerFile หรือ image ที่ต้องการใน DockerHub
-        - network => เน็ตเวิร์คของ Traefik
-        - command => สั่งใช้งาน command หลังจากรีบูท containner เสร็จสิ้น
+        - image => image ที่ต้อง build `thanawat1303/fastapi-main`
+        - networks => เน็ตเวิร์คของ Traefik
         - environment => สภาพแวดล้อมที่ application ต้องการ
           - PORT => พอร์ตที่ application ต้องการ
         - logging => ประวัติการทำงานของ container
@@ -77,11 +80,38 @@
       - webproxy => บริการ network revert proxy ที่อยู่ภายในระบบ
         - external => กำหนดสถานะของ network ที่อยู่ภายใน host
     - volumes => พื้นที่เก็บข้อมูลที่จะสร้างไว้ให้อยู่บน Host
-      - app => ชื่อพื้นที่เก็บข้อมูล ภายใน host ต้องตรงตามที่กำหนดที่ volumes ที่ mount กับ contianner
- 8. จัดการไฟล์ main.py ใน path app/main.py เพื่อจัดการ UI ใน application
+      - app => ชื่อพื้นที่เก็บข้อมูล ภายใน host ต้องตรงตามที่กำหนดที่ volumes ที่ mount กับ contianer
  9. ทำการ Remote และ upload ไฟล์งานเข้าสู่ Repo swarm02 บน github
  10. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ potainer ของระบบ
  11. Deploy
+
+### Create Image on Stack
+ 1. ทำการนำไฟล์ compose.yml deploy ผ่าน Portainer CE 
+    - compose.yml Deploy ยังไม่ทำการ mount volume เพื่อเตรียมนำข้อมูลใส่เข้าไป
+ 2. ทำการเข้าสู่ Container ของ application เพื่อทำงานคำสั่งต่าง ๆ ตาม Dockerfile
+    ```
+    docker exec -it <Container ID> bash #คำสั่งในการเข้าสู่ Container
+    ```
+
+ 3. check container ID
+    ```
+    docker ps
+    ```
+ 4. จัดการไฟล์ main.py ใน path app/main.py สำหรับ UI ใน application
+ 5. ทำการ copy ไฟล์ main.py จาก Path app/main.py เข้าสู่ container application
+    ```
+    docker cp main.py <Container ID>:/var/www/html #copy ไฟล์เข้าสู่ container ด้วยคำสั่ง 
+    ```
+
+ 6. สร้าง image จาก container 
+    ```
+    docker commit <Container ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest
+    ```
+
+ 7. push Image to DockerHub
+     ```
+     docker push <image ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest
+     ```
 
 ### Stack Swarm
 <a name="stack-swarm"></a>
@@ -159,6 +189,3 @@
 ### Remote Repo on LINUX
  1. ทำการสร้างไฟล์ README.md ใน Repo 
  2. git clone <URL GIT Repo>
-
-### Ref
-- https://github.com/docker/awesome-compose/tree/master/fastapi
