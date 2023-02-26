@@ -46,6 +46,7 @@ services:
         limits:
           cpus: '0.4'
           memory: 250M
+          
 networks:
   webproxy:
     external: true
