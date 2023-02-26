@@ -44,7 +44,7 @@
    docker swarm init #รันในเครื่อง Manage
    ```
 
- 5. <a href="revert-proxy">ทำการเตรียม Revert Proxy</a>
+ 5. [ทำการเตรียม Revert Proxy](#revert-proxy)
  6. ทำการเตรียมไฟล์ docker-compose.yml
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
