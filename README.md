@@ -4,13 +4,10 @@
 
    set time
 
-    ```
     timedatectl set-timezone Asia/Bangkok
-    ```
 
    install Docker
 
-    ```
     apt update; apt upgrade -y #อัปเดตแพ็คเกจภายในเครื่อง
 
     apt-get install ca-certificates curl wget gnupg lsb-release -y #ติดตั้งแพ็คเกจ
@@ -25,7 +22,6 @@
     apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y #ติดตั้ง Docker
 
     reboot
-    ```
 
  2. Set Hostname 
 
