@@ -1,7 +1,7 @@
 # swarm02 fastapi
 ### Url fastapi
 - https://spcn19fastapi.xops.ipv9.xyz/
-### Ref
+### Ref ตัวอย่าง application
 - https://github.com/docker/awesome-compose/tree/master/fastapi
 ### ขั้นตอนการติดตั้ง และใช้งาน ใน VM
  1. Set Template 
@@ -188,4 +188,4 @@
 
 ### Remote Repo on LINUX
  1. ทำการสร้างไฟล์ README.md ใน Repo 
- 2. git clone <URL GIT Repo>
+ 2. git clone "URL GIT Repo"
