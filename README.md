@@ -26,13 +26,11 @@
       ```
 
  2. Set Hostname 
-
     ```
     hostnamectl set-hostname "ชื่อ Hostname โดยต้องห้ามซ้ำ" #spcn19-swarm02
     ```
 
  3. Reset Machine ID เพื่อขอ Public IP จาก DHCP
-   
     ```
     cp /dev/null /etc/machine-id
     rm /var/lib/dbus/machine-id
@@ -41,13 +39,12 @@
     ```
 
  4. ทำการนำ Url Token จากคำสั่ง 
- 
     ```
     docker swarm init #รันในเครื่อง Manage
     ```
 
  5. [ทำการเตรียม Revert Proxy](#revert-proxy)
- 6. ทำการเตรียมไฟล์ docker-compose.yml
+ 6. ทำการเตรียมไฟล์ docker-compose.yml #
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
       - api : => ชื่อของ application
@@ -66,11 +63,11 @@
             - traefik.docker.network => ชื่อ network ของ Traefik
             - traefik.enable => กำหนดสถานะการใช้งาน
             - traefik.constraint-label => เลือก traefik ที่ต้องการให้ container ไปทำงาน
-            - traefik.http.routers.spcn19fastapi-https.entrypoints => กำหนด port ในการเชื่อมต่อเมื่อมีคำขอเข้าไปที่ traefik
-            - traefik.http.routers.spcn19fastapi-https.rule=Host("spcn19fastapi.xops.ipv9.xyz") 
-            - traefik.http.routers.spcn19fastapi-https.tls.certresolver => กำหนดการสร้างใบรับรอง url
-            - traefik.http.services.spcn19fastapi.loadbalancer.server.port => กำหนดให้มีการ balance ในการร้องขอ port ที่ container ทำงาน
-            - traefik.http.routers.spcn19fastapi-https.tls => เปิดใช้งาน Protocal TLS
+            - traefik.http.routers.${APPNAME}-https.entrypoints => กำหนด port ในการเชื่อมต่อเมื่อมีคำขอเข้าไปที่ traefik
+            - traefik.http.routers.${APPNAME}-https.rule=Host(`${APPNAME}.xops.ipv9.xyz`) => กำหนด Domain ในการเข้าถึง application
+            - traefik.http.routers.${APPNAME}-https.tls.certresolver => กำหนดการสร้างใบรับรอง url
+            - traefik.http.services.${APPNAME}.loadbalancer.server.port => กำหนดให้มีการ balance ในการร้องขอ port ที่ container ทำงาน
+            - traefik.http.routers.${APPNAME}-https.tls => เปิดใช้งาน Protocal TLS
           - resources => กำหนดสเปคที่ต้องการของ Containner
             - reservations => กำหนดค่าขั้นต่ำของสเปค
             - limits => กำหนดค่าสูงสุดของสเปค
@@ -103,30 +100,34 @@
      ```
 
    - Get ID Node 
-     
+     ```
      export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}') 
      echo $NODE_ID
+     ```
 
    - สร้าง Label ของ Node Manage
-
+     ```
      docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
+     ```
 
    - set Treafik
-
+     ```
      export EMAIL=user@smtp.com
      export DOMAIN=<ชื่อ traefik domain ที่ต้องการให้เข้าถึง traefik>
      export USERNAME=admin
      export PASSWORD=<รหัสผ่าน traefik>
      export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
      echo $HASHED_PASSWORD
+     ```
 
    - deploy traefik stack
-
+     ```
      docker stack deploy -c traefik-host.yml traefik
-
+     ```
+     
    - ทดลองเปิดหน้า Dashboard Traefik
 
-     ![image.png]
+     image.png
 
    ### Ref
 
