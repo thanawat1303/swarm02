@@ -2,15 +2,15 @@
 ### ขั้นตอนการติดตั้ง และใช้งาน ใน VM
  1. Set Template 
 
-    set time
+    - set time
 
-     timedatectl set-timezone Asia/Bangkok
+      timedatectl set-timezone Asia/Bangkok
 
-    install Docker
+    - install Docker
 
-     apt update; apt upgrade -y #อัปเดตแพ็คเกจภายในเครื่อง
+      apt update; apt upgrade -y #อัปเดตแพ็คเกจภายในเครื่อง
 
-     apt-get install ca-certificates curl wget gnupg lsb-release -y #ติดตั้งแพ็คเกจ
+      apt-get install ca-certificates curl wget gnupg lsb-release -y #ติดตั้งแพ็คเกจ
 
       mkdir -m 0755 -p /etv/apt/keyrings
 
