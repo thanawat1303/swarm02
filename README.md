@@ -25,24 +25,24 @@
 
  2. Set Hostname 
 
-   ```
-   hostnamectl set-hostname "ชื่อ Hostname โดยต้องห้ามซ้ำ" #spcn19-swarm02
-   ```
+    ```
+    hostnamectl set-hostname "ชื่อ Hostname โดยต้องห้ามซ้ำ" #spcn19-swarm02
+    ```
 
  3. Reset Machine ID เพื่อขอ Public IP จาก DHCP
    
-   ```
-   cp /dev/null /etc/machine-id
-   rm /var/lib/dbus/machine-id
-   ln -s /etc/machine-id /var/lib/dbus/machine-id
-   init 0
-   ```
+    ```
+    cp /dev/null /etc/machine-id
+    rm /var/lib/dbus/machine-id
+    ln -s /etc/machine-id /var/lib/dbus/machine-id
+    init 0
+    ```
 
  4. ทำการนำ Url Token จากคำสั่ง 
  
-   ```
-   docker swarm init #รันในเครื่อง Manage
-   ```
+    ```
+    docker swarm init #รันในเครื่อง Manage
+    ```
 
  5. [ทำการเตรียม Revert Proxy](#revert-proxy)
  6. ทำการเตรียมไฟล์ docker-compose.yml
@@ -96,10 +96,13 @@
 
    - สร้าง Network ใหม่
  
+   ```
    docker network create --driver=overlay traefik-public
+   ```
 
    - Get ID Node 
 
+   
    export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
    echo $NODE_ID
 
