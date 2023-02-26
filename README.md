@@ -37,12 +37,12 @@
    ln -s /etc/machine-id /var/lib/dbus/machine-id
    init 0
    ```
-   
+
  4. ทำการนำ Url Token จากคำสั่ง 
  
-    docker swarm init 
-        
-    ในเครื่อง Manage มาทำการรันเพื่อเชื่อมต่อ swarm
+   ```
+   docker swarm init #รันในเครื่อง Manage
+   ```
 
  5. <a href="revert-proxy">ทำการเตรียม Revert Proxy</a>
  6. ทำการเตรียมไฟล์ docker-compose.yml
