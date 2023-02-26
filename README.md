@@ -50,6 +50,7 @@
 
  6. [ทำการเตรียม Revert Proxy](#revert-proxy)
  7. ทำการเตรียมไฟล์ docker-compose.yml #APPNAME => spcn19fastapi
+    ```อ้างอิงข้อมูล image และ command จาก DockerFile```
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
       - api : => ชื่อของ application
