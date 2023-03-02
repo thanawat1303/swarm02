@@ -49,7 +49,7 @@
 
  5. [ทำการเตรียม stack swarm](#stack-swarm)
  6. [ทำการเตรียม Revert Proxy](#revert-proxy)
- 7. [สร้าง Image สำหรับ Stack](#create-image-on-stack)
+ 7. [สร้าง Image สำหรับ Stack](#create-image-on-dockerfile)
  8. ทำการเตรียมไฟล์ docker-compose.yml #APPNAME => `spcn19fastapi`
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
@@ -81,36 +81,23 @@
         - external => กำหนดสถานะของ network ที่อยู่ภายใน host
     - volumes => พื้นที่เก็บข้อมูลที่จะสร้างไว้ให้อยู่บน Host
       - app => ชื่อพื้นที่เก็บข้อมูล ภายใน host ต้องตรงตามที่กำหนดที่ volumes ที่ mount กับ contianer
- 9. ทำการ Remote และ upload ไฟล์งานเข้าสู่ Repo swarm02 บน github
- 10. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ portainer ของระบบ
- 11. Deploy
+ 9. ทดลอง Deploy docker-compose ด้วย image ที่สร้าง บน Cluster ของตนเอง
+ 10. ทำการ Remote และ upload ไฟล์งานเข้าสู่ Repo swarm02 บน github
+ 11. ทำการนำข้อมูลในไฟล์ docker-compose หรือ LINK repo github เข้ากับ portainer ของระบบ
+ 12. Deploy
 
-### Create Image on Stack
- 1. ทำการนำไฟล์ compose.yml deploy ผ่าน Portainer CE 
-    - compose.yml Deploy ยังไม่ทำการ mount volume เพื่อเตรียมนำข้อมูลใส่เข้าไป
- 2. ทำการเข้าสู่ Container ของ application เพื่อทำงานคำสั่งต่าง ๆ ตาม Dockerfile
+### Create Image on Dockerfile
+ 1. จัดการไฟล์ main.py ใน path app/main.py สำหรับ UI ใน application
+ 2. แก้ไขไฟล์ Dockerfile จากตัวอย่างให้เป็นแบบ Dockerfile ใน path app
+ 3. สร้าง Image จาก Dockerfile ใน path app ด้วยคำสั่ง
+ 
     ```
-    docker exec -it <Container ID> bash #คำสั่งในการเข้าสู่ Container
+    docker build . -t <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest thanawat1303/fastapi-mainx:v1
     ```
+ 4. push Image to DockerHub
 
- 3. check container ID
-    ```
-    docker ps
-    ```
- 4. จัดการไฟล์ main.py ใน path app/main.py สำหรับ UI ใน application
- 5. ทำการ copy ไฟล์ main.py จาก Path app/main.py เข้าสู่ container application
-    ```
-    docker cp main.py <Container ID>:/var/www/html #copy ไฟล์เข้าสู่ container ด้วยคำสั่ง 
-    ```
-
- 6. สร้าง image จาก container 
-    ```
-    docker commit <Container ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest
-    ```
-
- 7. push Image to DockerHub
      ```
-     docker push <image ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest
+     docker push <image ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest thanawat1303/fastapi-mainx:v1
      ```
 
 ### Stack Swarm

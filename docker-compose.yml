@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   api:
-    image: thanawat1303/fastapi-main
+    image: thanawat1303/fastapi-main:v1
     networks:
      - webproxy
     environment:
