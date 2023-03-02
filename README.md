@@ -92,12 +92,12 @@
  3. สร้าง Image จาก Dockerfile ใน path app ด้วยคำสั่ง
  
     ```
-    docker build . -t <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest thanawat1303/fastapi-mainx:v1
+    docker build . -t <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest thanawat1303/fastapi-main:v1
     ```
  4. push Image to DockerHub
 
      ```
-     docker push <image ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest thanawat1303/fastapi-mainx:v1
+     docker push <image ID> <usernameDockerHub>/<repo>:<tag> #หากไม่ใส่ tag จะเป็น latest thanawat1303/fastapi-main:v1
      ```
 
 ### Stack Swarm
