@@ -49,7 +49,7 @@
 
  5. [ทำการเตรียม stack swarm](#stack-swarm)
  6. [ทำการเตรียม Revert Proxy](#revert-proxy)
- 7. [สร้าง Image สำหรับ Stack](#create-image-on-dockerfile)
+ 7. [สร้าง Image จาก Dockerfile](#create-image-on-dockerfile)
  8. ทำการเตรียมไฟล์ docker-compose.yml #APPNAME => `spcn19fastapi`
     - version => เวอร์ชั่นของไฟล์ compose ต้อง 3 ขึ้นไป
     - services :
