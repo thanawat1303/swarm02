@@ -1,8 +1,14 @@
 # swarm02 fastapi
-### Url fastapi
-- https://spcn19fastapi.xops.ipv9.xyz/
-### Ref ตัวอย่าง application
+
+### Ref awaresome-compose
 - https://github.com/docker/awesome-compose/tree/master/fastapi
+
+### Wakatime project
+- https://wakatime.com/@spcn19/projects/iickecxaxq?start=2023-02-18&end=2023-03-12
+
+### Url fastapi app
+- https://spcn19fastapi.xops.ipv9.xyz/
+
 ### ขั้นตอนการติดตั้ง และใช้งาน ใน VM
  1. Set Template 
 
