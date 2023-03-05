@@ -8,7 +8,7 @@ services:
      PORT: 8000 
     logging:
       driver: json-file #type file 
-    volumes: #volume data container
+    volumes: #mount data volume of container
       - /var/run/docker.sock:/var/run/docker.sock
       - app:/app # "path data on host" : "path data on container"
     restart: 'no'

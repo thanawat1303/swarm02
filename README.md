@@ -12,12 +12,12 @@
 ### Step on Work
  1. Set Template 
 
-    - set time
+    - Set time
       ```
       timedatectl set-timezone Asia/Bangkok
       ```
 
-    - install Docker
+    - Install Docker
       ```
       apt update; apt upgrade -y #update packet
 
@@ -35,7 +35,7 @@
       reboot
       ```
 
- 2. Clone Templete to 3 Node
+ 2. Create node from Template
     - manage
     - work1
     - work2
@@ -45,7 +45,7 @@
     hostnamectl set-hostname "Hostname not must duplicate" #spcn19-swarm02
     ```
 
- 4. Reset Machine ID request Public IP of DHCP 
+ 4. Reset machine ID to request a public IP from DHCP
     ```
     cp /dev/null /etc/machine-id
     rm /var/lib/dbus/machine-id
@@ -53,7 +53,7 @@
     init 0
     ```
 
- 5. [stack swarm](#stack-swarm)
+ 5. [Stack swarm and Portainer CE](#stack-swarm)
  6. [Revert Proxy](#revert-proxy)
  7. [Create Image of Dockerfile](#create-image-on-dockerfile)
  8. Create docker-compose.yml #APPNAME `spcn19fastapi`
@@ -64,19 +64,19 @@
 
 ### Create Image on Dockerfile
  1. Create main.py in path app/main.py for UI application
- 2. Edit Dockerfile of Exam Dockerfile in path app
+ 2. Edit Dockerfile from exam to Dockerfile in path app
  3. Create image of Dockerfile in path app
  
     ```
     docker build . -t <usernameDockerHub>/<repo>:<tag> #thanawat1303/fastapi-main:v1
     ```
- 4. push Image to DockerHub
+ 4. Push image to DockerHub
 
      ```
      docker push <image ID> <usernameDockerHub>/<repo>:<tag> #thanawat1303/fastapi-main:v1
      ```
 
-### Stack Swarm
+### Stack Swarm and Portainer CE
 <a name="stack-swarm"></a>
 
  - Manager Swarm
@@ -93,7 +93,7 @@
      docker node ls
      ```
 
-   - install portainer CE
+   - Install portainer CE
      ```
      curl -L https://downloads.portainer.io/ce2-17/portainer-agent-stack.yml -o portainer-agent-stack.yml
      docker stack deploy -c portainer-agent-stack.yml portainer
@@ -122,18 +122,18 @@
      docker network create --driver=overlay traefik-public
      ```
 
-   - Get ID Node
+   - Get ID node 
      ```
      export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}') 
      echo $NODE_ID
      ```
 
-   - Create Label of Node Manage
+   - Create label of node manage
      ```
      docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
      ```
 
-   - set Treafik
+   - Set Treafik
      ```
      export EMAIL=user@smtp.com
      export DOMAIN=<traefik domain that want access traefik>
@@ -143,16 +143,19 @@
      echo $HASHED_PASSWORD
      ```
 
-   - deploy traefik stack
+   - Deploy traefik stack
      ```
      docker stack deploy -c traefik-host.yml traefik
      ```
      
-   - Test open Dashboard Traefik
+   - Test open dashboard Traefik
 
    ### Ref
    - https://github.com/pitimon/dockerswarm-inhoure/tree/main/ep03-traefik
 
 ### Remote Repo on LINUX
- 1. create file README.md in Repo swarm02 
- 2. git clone "URL GIT Repo"
+ 1. Create file README.md in Repo swarm02 
+ 2. run
+    ```
+    git clone "URL GIT Repo"
+    ```
