@@ -4,7 +4,7 @@
 - https://github.com/docker/awesome-compose/tree/master/fastapi
 
 ### Wakatime project
-- https://wakatime.com/@spcn19/projects/iickecxaxq?start=2023-02-18&end=2023-03-12
+- https://wakatime.com/@spcn19/projects/iickecxaxq
 
 ### Url fastapi app
 - https://spcn19fastapi.xops.ipv9.xyz/
