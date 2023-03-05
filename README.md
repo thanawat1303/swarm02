@@ -7,7 +7,7 @@
 - https://wakatime.com/@spcn19/projects/iickecxaxq
 
 ### Url fastapi app
-- https://spcn19fastapi.xops.ipv9.xyz/
+- https://spcn19fastapi.xops.ipv9.xyz
 
 ### Step on Work
  1. Set Template 
