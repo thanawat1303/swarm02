@@ -1,38 +1,38 @@
-version: '3.3'
-services:
-  api:
-    image: thanawat1303/fastapi-main:v1
-    networks:
-     - webproxy
-    environment:
-     PORT: 8000
+version: '3.3' #version compose must than 3 
+services: 
+  api: #name application
+    image: thanawat1303/fastapi-main:v1 #image service on dockerhub
+    networks: #network in service
+     - webproxy #network traefik
+    environment: #environment application
+     PORT: 8000 
     logging:
-      driver: json-file
-    volumes:
+      driver: json-file #type file 
+    volumes: #volume data container
       - /var/run/docker.sock:/var/run/docker.sock
-      - app:/app
+      - app:/app # "path data on host" : "path data on container"
     restart: 'no'
-    deploy:
-      replicas: 1
-      labels:
-        - traefik.docker.network=webproxy
-        - traefik.enable=true
-        - traefik.constraint-label=webproxy
-        - traefik.http.routers.spcn19fastapi-https.entrypoints=websecure
-        - traefik.http.routers.spcn19fastapi-https.rule=Host("spcn19fastapi.xops.ipv9.xyz")
-        - traefik.http.routers.spcn19fastapi-https.tls.certresolver=default
-        - traefik.http.services.spcn19fastapi.loadbalancer.server.port=8000
-        - traefik.http.routers.spcn19fastapi-https.tls=true
-      resources:
-        reservations:
-          cpus: '0.1'
+    deploy: #set deploy for swarm
+      replicas: 1 #set amount worker want deploy container
+      labels: #set labels application connect Traefik
+        - traefik.docker.network=webproxy #name network of Traefik
+        - traefik.enable=true #status of connect
+        - traefik.constraint-label=webproxy #select traefik want container working
+        - traefik.http.routers.spcn19fastapi-https.entrypoints=websecure #set position when have request to traefik
+        - traefik.http.routers.spcn19fastapi-https.rule=Host("spcn19fastapi.xops.ipv9.xyz") #set domain access to application
+        - traefik.http.routers.spcn19fastapi-https.tls.certresolver=default #set certresolver
+        - traefik.http.services.spcn19fastapi.loadbalancer.server.port=8000 #set balance when request to port on container
+        - traefik.http.routers.spcn19fastapi-https.tls=true #set status Protocal TLS
+      resources: #set space that want of Container
+        reservations: #set low space
+          cpus: '0.1' 
           memory: 10M
-        limits:
+        limits: #set high space
           cpus: '0.4'
           memory: 250M
           
-networks:
-  webproxy:
+networks: #set networks outside container
+  webproxy: #service network revert proxy on cluster
     external: true
-volumes:
+volumes: #volumes on host of Docker
   app:
