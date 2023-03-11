@@ -11,8 +11,8 @@
 
 ### Step on Work
  
- 7. [Create Image of Dockerfile](#create-image-on-dockerfile)
- 8. Create docker-compose.yml `spcn19fastapi`
+ 1. [Create Image of Dockerfile](#create-image-on-dockerfile)
+ 2. Create docker-compose.yml `spcn19fastapi`
     <details>
     <summary>Show code</summary>
 
