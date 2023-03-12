@@ -10,9 +10,10 @@
 - https://spcn19fastapi.xops.ipv9.xyz
 
 ### Step on Work
- 
- 1. [Create Image from Dockerfile](#create-image-from-dockerfile)
- 2. Create docker-compose.yml `spcn19fastapi`
+ 1. Create folder swarm02 and Open folder on VScode
+ 2. Create folder app
+ 3. [Create Image from Dockerfile](#create-image-from-dockerfile)
+ 4. Create docker-compose.yml `spcn19fastapi`
     <details>
     <summary>Show code</summary>
 
@@ -58,21 +59,36 @@
     ```
 
     </details>
- 3. Push docker-compose.yml to github swarm02
- 4. Open https://portainer.ipv9.me/
+ 5. <details>
+    <summary>Show file structure in work</summary>
+
+    ```ruby
+    |__.app
+        |__.Dockerfile
+        |__.main.py
+        |__.requirements.txt
+    |__.docker-compose.yml
+    ```
+
+    </details> 
+ 6. Push file to github swarm02
+ 7. Open https://portainer.ipv9.me/
 
 <div align="center"><img src="app/image/openportainer.png" width="500px"></div>
 
- 5. Click Cluster Xopx.ipv9.xyz on Portainer
- 6. Click menu Stack on Cluster Xopx.ipv9.xyz
+ 8. Click Cluster Xopx.ipv9.xyz on Portainer
+
+<div align="center"><img src="app/image/clickcluster.png" width="500px"></div>
+
+ 9. Click menu Stack on Cluster Xopx.ipv9.xyz
 
 <div align="center"><img src="app/image/cluster.png" width="500px"></div>
 
- 7. Click button Add Stack
+ 10. Click button Add Stack
 
 <div align="center"><img src="app/image/menuservice.png" width="500px"></div>
 
- 8. Click Build medthod is Repository
+ 11. Click Build medthod is Repository
 
 <div align="center"><img src="app/image/addStack.png" width="500px"></div>
 
@@ -83,10 +99,10 @@
   - Automatic updates = enable
     - Fetch interval = time check change on compose file from github 
     
- 9. Click button Deploy the stack
+ 12. Click button Deploy the stack
 
 ### Create Image from Dockerfile
- 1. Create main.py
+ 1. Create main.py in /app
     <details>
     <summary>Show code</summary>
 
@@ -101,7 +117,17 @@
     ```
 
     </details>
- 2. Create Dockerfile
+ 2. Create requirements.txt in /app
+    <details>
+    <summary>Show code</summary>
+
+    ```ruby
+    fastapi
+    uvicorn
+    ```
+
+    </details>
+ 3. Create Dockerfile in /app
     <details>
     <summary>Show code</summary>
 
@@ -133,12 +159,12 @@
     ```
 
     </details>
- 3. Build image from Dockerfile
+ 4. Build image from Dockerfile
  
     ```
-    docker build . -t <usernameDockerHub>/<repo>:<tag> #thanawat1303/fastapi-main:v1
+    docker build <path dockerfile> -t <usernameDockerHub>/<repo>:<tag> #thanawat1303/fastapi-main:v1
     ```
- 4. Push image to DockerHub
+ 5. Push image to DockerHub
 
      ```
      docker push <image ID> <usernameDockerHub>/<repo>:<tag> #thanawat1303/fastapi-main:v1
