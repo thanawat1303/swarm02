@@ -131,7 +131,7 @@
     <details>
     <summary>Show code</summary>
 
-    ```docker
+    ```ruby
     FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim AS builder #image container
 
     WORKDIR . #Set path working command on container
